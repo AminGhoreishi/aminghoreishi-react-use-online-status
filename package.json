@@ -1,17 +1,17 @@
 {
-  "name": "react-use-online-status",
+  "name": "@aminghoreishi/react-use-online-status",
   "version": "0.1.0",
   "description": "Ultra-lightweight React hook for monitoring online status and network connection information",
   "author": "AminGhoreishi",
   "license": "MIT",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
   "files": [
@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
+    "prepublishOnly": "npm run build",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

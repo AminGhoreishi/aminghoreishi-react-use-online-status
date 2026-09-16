@@ -1,13 +1,13 @@
-# react-use-online-status
+# @aminghoreishi/react-use-online-status
 
 <p align="center">
   <strong>An ultra-lightweight, SSR-safe React hook to monitor online/offline status and network connection quality in real-time.</strong>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/react-use-online-status"><img src="https://img.shields.io/npm/v/react-use-online-status.svg?style=flat-square&color=blue" alt="npm version" /></a>
-  <a href="https://bundlephobia.com/package/react-use-online-status"><img src="https://img.shields.io/bundlephobia/minzip/react-use-online-status?style=flat-square&color=green" alt="bundle size" /></a>
-  <a href="https://github.com/AminGhoreishi/amin-kbd-shortcut/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/react-use-online-status?style=flat-square&color=orange" alt="license" /></a>
+  <a href="https://www.npmjs.com/package/@aminghoreishi/react-use-online-status"><img src="https://img.shields.io/npm/v/@aminghoreishi/react-use-online-status.svg?style=flat-square&color=blue" alt="npm version" /></a>
+  <a href="https://bundlephobia.com/package/@aminghoreishi/react-use-online-status"><img src="https://img.shields.io/bundlephobia/minzip/@aminghoreishi/react-use-online-status?style=flat-square&color=green" alt="bundle size" /></a>
+  <a href="https://github.com/AminGhoreishi/amin-kbd-shortcut/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@aminghoreishi/react-use-online-status?style=flat-square&color=orange" alt="license" /></a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-blue?style=flat-square&logo=typescript" alt="TypeScript" />
 </p>
 
@@ -28,16 +28,16 @@
 
 ```bash
 # npm
-npm install react-use-online-status
+npm install @aminghoreishi/react-use-online-status
 
 # pnpm
-pnpm add react-use-online-status
+pnpm add @aminghoreishi/react-use-online-status
 
 # yarn
-yarn add react-use-online-status
+yarn add @aminghoreishi/react-use-online-status
 
 # bun
-bun add react-use-online-status
+bun add @aminghoreishi/react-use-online-status
 ```
 
 ---
@@ -46,7 +46,7 @@ bun add react-use-online-status
 
 ```tsx
 import React from "react";
-import useOnlineStatus from "react-use-online-status";
+import useOnlineStatus from "@aminghoreishi/react-use-online-status";
 
 export const StatusBanner = () => {
   const { isOnline } = useOnlineStatus();
@@ -69,7 +69,7 @@ Detect slow connections (e.g. 2G, low downlink bandwidth, or Data Saver mode ena
 
 ```tsx
 import React from "react";
-import useOnlineStatus from "react-use-online-status";
+import useOnlineStatus from "@aminghoreishi/react-use-online-status";
 
 export const NetworkMonitor = () => {
   const {
@@ -134,7 +134,7 @@ All types are exported directly from the package:
 import type {
   UseOnlineStatusOptions,
   UseOnlineStatusReturn,
-} from "react-use-online-status";
+} from "@aminghoreishi/react-use-online-status";
 ```
 
 ---
