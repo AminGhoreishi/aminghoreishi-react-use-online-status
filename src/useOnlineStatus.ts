@@ -13,7 +13,7 @@ export interface UseOnlineStatusReturn {
   isSlowConnection: boolean;
 }
 
-const useOnlineStatus = ({
+export const useOnlineStatus = ({
   onOnline,
   onOffline,
 }: UseOnlineStatusOptions = {}): UseOnlineStatusReturn => {

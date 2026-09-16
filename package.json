@@ -1,8 +1,8 @@
 {
-  "name": "react-kbd-shortcut",
+  "name": "react-use-online-status",
   "version": "0.1.0",
-  "description": "Ultra-lightweight React hook for keyboard shortcuts and key combinations",
-  "author": "",
+  "description": "Ultra-lightweight React hook for monitoring online status and network connection information",
+  "author": "AminGhoreishi",
   "license": "MIT",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -37,10 +37,11 @@
   },
   "keywords": [
     "react",
-    "keyboard",
-    "shortcuts",
-    "hotkeys",
+    "online",
+    "offline",
+    "network",
+    "connection",
     "hook",
-    "kbd"
+    "use-online-status"
   ]
 }
