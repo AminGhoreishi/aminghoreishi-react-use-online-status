@@ -16,6 +16,7 @@
 ## Features
 
 - **Real-Time Detection:** Listens to `online` and `offline` browser events automatically.
+- **Manual Recheck:** Trigger on-demand connectivity checks with `recheck()`.
 - **Network Quality Insights:** Exposes Network Information API metrics including `effectiveType`, `downlink`, `saveData`, and `isSlowConnection`.
 - **SSR Safe:** Safely handles server-side rendering environments without `window` or `navigator` crashes.
 - **Event Callbacks:** Provides `onOnline` and `onOffline` triggers for alerts or synchronization.
@@ -49,11 +50,14 @@ import React from "react";
 import useOnlineStatus from "@aminghoreishi/react-use-online-status";
 
 export const StatusBanner = () => {
-  const { isOnline } = useOnlineStatus();
+  const { isOnline, recheck } = useOnlineStatus();
 
   return (
     <div style={{ background: isOnline ? "#10b981" : "#ef4444", color: "#fff", padding: "8px 16px" }}>
-      {isOnline ? "Back online" : "You are currently offline"}
+      <span>{isOnline ? "Back online" : "You are currently offline"}</span>
+      <button onClick={() => recheck()} style={{ marginLeft: "12px" }}>
+        Check again
+      </button>
     </div>
   );
 };
@@ -78,6 +82,7 @@ export const NetworkMonitor = () => {
     downlink,
     saveData,
     isSlowConnection,
+    recheck,
   } = useOnlineStatus({
     onOnline: () => {
       console.log("Connection restored!");
@@ -96,6 +101,7 @@ export const NetworkMonitor = () => {
       {isSlowConnection && (
         <span className="warning">Slow connection detected. Loading optimized assets...</span>
       )}
+      <button onClick={() => recheck()}>Recheck Status</button>
     </div>
   );
 };
@@ -123,6 +129,7 @@ export const NetworkMonitor = () => {
 | `downlink` | `number` | Estimated bandwidth in megabits per second (Mbps). |
 | `saveData` | `boolean` | `true` if the user enabled reduced data usage mode. |
 | `isSlowConnection` | `boolean` | `true` if on 2G, slow-2g, data-saver, or downlink < 1.5 Mbps. |
+| `recheck` | `() => Promise<boolean>` | Manually tests network connectivity, updates status, and returns the result. |
 
 ---
 
