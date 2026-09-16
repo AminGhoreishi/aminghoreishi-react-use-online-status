@@ -1,6 +1,22 @@
 import { useEffect, useState } from "react";
 
-const useOnlineStatus = ({ onOnline, onOffline } = {}) => {
+export interface UseOnlineStatusOptions {
+  onOnline?: () => void;
+  onOffline?: () => void;
+}
+
+export interface UseOnlineStatusReturn {
+  isOnline: boolean;
+  effectiveType: string;
+  downlink: number;
+  saveData: boolean;
+  isSlowConnection: boolean;
+}
+
+const useOnlineStatus = ({
+  onOnline,
+  onOffline,
+}: UseOnlineStatusOptions = {}): UseOnlineStatusReturn => {
   const [isUserOnline, setIsUserOnline] = useState(() => {
     return typeof navigator !== "undefined" ? navigator.onLine : true;
   });
