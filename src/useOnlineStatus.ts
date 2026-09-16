@@ -1,55 +1,75 @@
 import { useEffect, useState } from "react";
 
-export interface UseOnlineStatusOptions {
-  onOnline?: () => void;
-  onOffline?: () => void;
-}
-
-export interface UseOnlineStatusReturn {
-  isOnline: boolean;
-  effectiveType: string;
-  downlink: number;
-  saveData: boolean;
-  isSlowConnection: boolean;
-}
-
-export const useOnlineStatus = ({
-  onOnline,
-  onOffline,
-}: UseOnlineStatusOptions = {}): UseOnlineStatusReturn => {
+const useOnlineStatus = (
+  { onOnline, onOffline } = { onOnline: () => {}, onOffline: () => {} },
+) => {
   const [isUserOnline, setIsUserOnline] = useState(() => {
     return typeof navigator !== "undefined" ? navigator.onLine : true;
   });
 
   const [effectiveType, setEffectiveType] = useState(() => {
     return typeof navigator !== "undefined"
-      ? navigator.connection?.effectiveType ?? ""
+      ? (navigator.connection?.effectiveType ?? "")
       : "";
   });
 
   const [downlink, setDownlink] = useState(() => {
     return typeof navigator !== "undefined"
-      ? navigator.connection?.downlink ?? 0
+      ? (navigator.connection?.downlink ?? 0)
       : 0;
   });
 
   const [saveData, setSaveData] = useState(() => {
     return typeof navigator !== "undefined"
-      ? navigator.connection?.saveData ?? false
+      ? (navigator.connection?.saveData ?? false)
       : false;
   });
 
+  const checkConnectivity = async () => {
+    if (typeof navigator !== "undefined" && !navigator.onLine) {
+      setIsUserOnline(false);
+      onOffline?.();
+      return false;
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 4000);
+
+    try {
+      const res = await fetch(`/favicon.ico?_t=${Date.now()}`, {
+        method: "HEAD",
+        cache: "no-store",
+        signal: controller.signal,
+      });
+
+      if (res.ok) {
+        setIsUserOnline(true);
+        onOnline?.();
+        return true;
+      } else {
+        setIsUserOnline(false);
+        onOffline?.();
+        return false;
+      }
+    } catch {
+      setIsUserOnline(false);
+      onOffline?.();
+      return false;
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+
   useEffect(() => {
     const handleStatusChange = () => {
-      const online = navigator.onLine;
-      setIsUserOnline(online);
-
-      if (online) {
-        onOnline?.();
+      if (navigator.onLine) {
+        checkConnectivity();
         setDownlink(navigator.connection?.downlink ?? 0);
         setSaveData(navigator.connection?.saveData ?? false);
         setEffectiveType(navigator.connection?.effectiveType ?? "");
       } else {
+        setIsUserOnline(false);
+        setDownlink(0);
         onOffline?.();
       }
     };
@@ -71,7 +91,7 @@ export const useOnlineStatus = ({
     saveData ||
     effectiveType === "2g" ||
     effectiveType === "slow-2g" ||
-    (downlink > 0 && downlink < 1.5)
+    (downlink > 0 && downlink < 1.5),
   );
 
   return {
@@ -80,6 +100,7 @@ export const useOnlineStatus = ({
     downlink,
     saveData,
     isSlowConnection,
+    recheck: checkConnectivity,
   };
 };
 

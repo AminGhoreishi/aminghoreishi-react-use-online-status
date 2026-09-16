@@ -1,6 +1,6 @@
 {
   "name": "@aminghoreishi/react-use-online-status",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ultra-lightweight React hook for monitoring online status and network connection information",
   "author": "AminGhoreishi",
   "license": "MIT",
